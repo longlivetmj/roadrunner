@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2018-09-07T20:19:53 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Salary_Detail_Printed_SubReport" pageWidth="529" pageHeight="200" whenNoDataType="NoDataSection" columnWidth="529" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d4faa3af-055e-44d4-9a45-43db46f0e123">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="TMS"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="inch"/>
+	<parameter name="SALARY_SEQ" class="java.lang.Integer"/>
+	<queryString language="plsql">
+		<![CDATA[SELECT
+  tb.prefix||lpad(tb.transport_booking_seq::text, 6, '0') request_id,
+  st.stakeholder_name,
+  actual_start.final_destination_code actual_start,
+  pickup.final_destination_code pickup_location,
+  (SELECT string_agg(via.final_destination_code,' VIA ') FROM tms.transport_booking_via_location tbv, tms.final_destination via WHERE tbv.transport_booking_seq = tb.transport_booking_seq and tbv.via_location_seq = via.final_destination_seq) viaLocations,
+  delivery.final_destination_code delivery_location,
+  actual_end.final_destination_code actual_end,
+  to_char(tbf.arrived_at_pickup, 'YYYY-MM-DD') arrived_at_pickup,
+  ve.vehicle_no,
+  ch.charge_name,
+  scd.total_km,
+  scd.rate,
+  scd.amount
+FROM
+  tms.salary_commission sc,
+  tms.salary_commission_details scd,
+  tms.charge ch,
+  tms.transport_booking_feedback tbf,
+  tms.transport_booking_vehicle tbv,
+  tms.stakeholder st,
+  tms.final_destination pickup,
+  tms.final_destination delivery,
+  tms.vehicle ve,
+  tms.transport_booking tb
+  LEFT JOIN tms.final_destination actual_start ON tb.actual_start_location_seq = actual_start.final_destination_seq
+  LEFT JOIN tms.final_destination actual_end ON tb.actual_end_location_seq = actual_end.final_destination_seq
+WHERE
+  sc.salary_seq = $P{SALARY_SEQ}
+  and sc.charge_seq = ch.charge_seq
+  and sc.salary_commission_seq = scd.salary_commission_seq
+  and scd.reference_seq = tb.transport_booking_seq
+  and tb.transport_booking_seq = tbv.transport_booking_seq
+  and tb.transport_booking_seq = tbf.transport_booking_seq
+  and tb.pickup_location_seq = pickup.final_destination_seq
+  and tb.delivery_location_seq = delivery.final_destination_seq
+  and tb.shipper_seq = st.stakeholder_seq
+  and tbv.vehicle_seq = ve.vehicle_seq
+  and tbv.status = 2
+ORDER BY
+  ch.charge_seq, tbf.arrived_at_pickup]]>
+	</queryString>
+	<field name="request_id" class="java.lang.String"/>
+	<field name="stakeholder_name" class="java.lang.String"/>
+	<field name="actual_start" class="java.lang.String"/>
+	<field name="pickup_location" class="java.lang.String"/>
+	<field name="vialocations" class="java.lang.String"/>
+	<field name="delivery_location" class="java.lang.String"/>
+	<field name="actual_end" class="java.lang.String"/>
+	<field name="arrived_at_pickup" class="java.lang.String"/>
+	<field name="vehicle_no" class="java.lang.String"/>
+	<field name="charge_name" class="java.lang.String"/>
+	<field name="total_km" class="java.lang.Double"/>
+	<field name="rate" class="java.lang.Double"/>
+	<field name="amount" class="java.lang.Double"/>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="469" y="0" width="60" height="59" isPrintWhenDetailOverflows="true" uuid="94d2b067-c196-40b9-ac03-6e9799b4491e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="389" height="59" isPrintWhenDetailOverflows="true" uuid="bac25203-1ee7-4e0a-9d8c-64ee3dce445d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="389" y="0" width="40" height="59" isPrintWhenDetailOverflows="true" uuid="ac981b8e-5ab9-444b-95f2-f27a1a4690eb"/>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="429" y="0" width="40" height="59" isPrintWhenDetailOverflows="true" uuid="40e58562-ed22-4f73-bb63-bb79e3bf2f26"/>
+			</rectangle>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="10" y="15" width="350" height="15" isPrintWhenDetailOverflows="true" uuid="b47ad69f-2d13-4200-b4f4-adcec25e8299"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stakeholder_name} + " - " + $F{vehicle_no}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="392" y="1" width="40" height="15" uuid="3d1e6683-80e2-4e51-9a75-382efb69e830"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="432" y="1" width="34" height="15" uuid="23deb199-fc10-4827-b81c-cc29b383c85f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_km}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="465" y="1" width="56" height="15" uuid="4c6c5c64-b3c5-4a62-8a22-0d0f2289c8f4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="10" y="31" width="350" height="27" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="35f6536d-8e2f-4f7c-90e8-647a0af26cbc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{actual_start} == null ? "":  "From " +$F{actual_start}) + 
+" pickup at " + $F{pickup_location} + ($F{vialocations} == null ?"":" "+$F{vialocations}) + "  deliver to "+  $F{delivery_location} 
++ ($F{actual_end} == null ? "":  " end at "+$F{actual_end})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="10" y="0" width="350" height="15" isPrintWhenDetailOverflows="true" uuid="132caf7f-20e1-40c5-83ec-82d9a1595c95"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{request_id} + " | " + $F{arrived_at_pickup} + " | " + $F{charge_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

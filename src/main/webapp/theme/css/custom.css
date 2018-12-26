@@ -1,0 +1,347 @@
+/*Custom CSS for the Joli Admin theme*/
+#loading {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    z-index: 100001;
+    height: 100%;
+}
+
+#loadShadowing {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #CCA;
+    z-index: 100000;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.cs-modal-lg {
+    width: 1200px;
+}
+
+.cs-modal-md {
+    width: 800px;
+}
+
+.transparent-btn {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: 0
+}
+
+.vertical-resize {
+    resize: vertical;
+}
+
+#airex_general_info {
+    border-bottom: 1px #1b2436;
+}
+
+.approved-status-colour {
+    background-color: #008000;
+    color: #fff;
+}
+
+.open-status-colour {
+    background-color: #B30000;
+    color: #fff;
+}
+
+.delete-status-colour {
+    background-color: #808080;
+    color: #fff;
+}
+
+.closed-status-colour {
+    background-color: #008080;
+    color: #fff;
+}
+
+.success-status-colour {
+    background-color: #008000;
+    color: #fff;
+}
+
+.error-status-colour {
+    background-color: #ff0000;
+    color: #000000;
+}
+
+.manage-master-job {
+    font-size: 17pt;
+    font-weight:bolder;
+    color: red;
+}
+
+.manage-master-bl {
+    font-size: 17pt;
+    color: black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.manage-master-bl-data{
+    font-size: 11pt;
+    color: #1a3333;
+}
+
+.manage-master-pre-alert {
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 15pt;
+    color: purple;
+}
+
+.manage-job-master-li {
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 15pt;
+    color: #2A00FF;
+}
+
+.manage-house-bl {
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 15pt;
+    color: #9c3328;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.manage-house-bl-li {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 15pt;
+    color: seagreen;
+}
+
+.manage-invoice{
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 12pt;
+    color: #434a54;;
+    cursor: pointer;
+}
+
+.manage-invoice-data{
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 10pt;
+    color: #2ca02c;
+    font-weight:lighter;
+}
+
+.manage-unused-charge-data{
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 10pt;
+    color: red;
+    font-weight:lighter;
+}
+
+.manage-financials{
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 17pt;
+    color: #2ca02c;
+    font-weight:bold;
+}
+
+.manage-job-status-lbl {
+    font-size: 15pt;
+    color: darkgreen;
+}
+
+.collaptable.manage-link-house > td{
+    padding: 4px;!important;
+}
+
+.house-bl-data {
+    font-size: 10pt;
+    color: #1a3333;
+    font-weight:lighter;
+}
+
+.manage-link-house {
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 15pt;
+    font-style: italic;
+    color: #0F192A;
+    cursor: pointer;
+}
+
+.manage-house-bl-link-li {
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 12pt;
+    color: seagreen;
+}
+
+.manage-link-invoice-total-lbl{
+    /*font-family: "Courier New", Courier, monospace;*/
+    font-size: 13pt;
+    color: #00a8c6;
+    font-weight:lighter;
+}
+
+.manage-bulk-link-li {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12pt;
+    color: #047d65;
+}
+
+.manage-pre-alert {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12pt;
+    color: purple;
+}
+
+.data-table-specific {
+    font-size: 15px;
+    font-weight: 700;
+    color: #434a54;
+}
+
+.table-expand-field{
+    font-size:11px; !important;
+}
+
+.table-expand-row{
+    /*background-color:lightblue ;*/
+}
+
+.datatable tr:hover {
+    background-color: #c6d9ec;
+    cursor: pointer;
+}
+
+.datatable td {
+    font-size: 12px;
+}
+
+.custom-table > tbody > tr:nth-child(odd) > td,
+.custom-table > tbody > tr:nth-child(odd) > th {
+    background: #EFF6FF;
+    border-color: #1caf9a;
+}
+
+.custom-table > tbody > tr:nth-child(even) > td,
+.custom-table > tbody > tr:nth-child(even) > th {
+    background: #F7FFC2;
+    border-color: #1caf9a;
+}
+
+.custom-table tr:hover td{
+    background-color: #c6d9ec;
+    cursor: pointer;
+}
+
+.datatable tr:hover td {
+    background-color: transparent; /* or #000 */
+    color:#000000;
+}
+
+.text-highlight{
+    color:red;
+}
+
+.text-highlight-big{
+    font-size: large;
+    color:red;
+}
+
+.text-important{
+    color:black;
+    text-decoration:underline;
+}
+
+.existing-record-background{
+    background-color: #F5F5F5;
+}
+
+.existing-lcn_record-background{
+    background-color: #d9edf7;
+}
+
+.text-align-right{
+    text-align: right; !important;
+}
+
+.text-align-center{
+    text-align: center; !important;
+}
+
+.font-12{
+    font-size: 12px;
+}
+
+.font-10{
+    font-size: 10px;
+}
+
+.h3-top-margin-5{
+    margin-top: 5px;
+}
+.h5-top-margin-7{
+    margin-top: 7px;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.googleLabel {
+    border:2px solid black;
+    margin-top: 8px;
+    background:#333;
+    color:#FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11px;
+    padding: .3em 0.5em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow:0 -1px #000000;
+    -webkit-box-shadow: 0 0 8px #000;
+    box-shadow: 0 0 8px #000;
+}
+
+.DTFC_LeftBodyLiner {
+    overflow-x: hidden;
+}
+
+.infobox-wrapper {
+    display:none;
+}
+#infobox {
+    border:2px solid black;
+    margin-top: 8px;
+    background:#333;
+    color:#FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    padding: .5em 1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow:0 -1px #000000;
+    -webkit-box-shadow: 0 0 8px #000;
+    box-shadow: 0 0 8px #000;
+}
+
+.labels {
+    border:2px solid black;
+    margin-top: 8px;
+    background:#333;
+    color:#FFF;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:12px;
+    padding: .5em 1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    text-shadow:0 -1px #000000;
+    -webkit-box-shadow: 0 0 8px #000;
+    box-shadow: 0 0 8px #000;
+}

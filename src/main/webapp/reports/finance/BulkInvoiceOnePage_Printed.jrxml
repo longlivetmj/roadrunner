@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2018-09-12T21:29:38 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BulkInvoiceOnePage_Printed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="038a2733-2f77-42fb-bda2-120418678806">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="TMS"/>
+	<parameter name="REPORT_SEQ" class="java.lang.Integer"/>
+	<parameter name="BULK_INVOICE_SEQ" class="java.lang.Integer"/>
+	<parameter name="CURRENCY" class="java.lang.String"/>
+	<parameter name="VEHICLE_NO" class="java.lang.String"/>
+	<parameter name="SHIPPER" class="java.lang.String"/>
+	<parameter name="FILTER_TYPE" class="java.lang.String"/>
+	<parameter name="START_DATE" class="java.lang.String"/>
+	<parameter name="END_DATE" class="java.lang.String"/>
+	<parameter name="INVOICED_DATE" class="java.lang.String"/>
+	<parameter name="INVOICE_TYPE" class="java.lang.String"/>
+	<parameter name="STAKEHOLDER_ADDRESS" class="java.lang.String"/>
+	<parameter name="OTHER_TAX_TEXT" class="java.lang.String"/>
+	<parameter name="VAT_TAX_TEXT" class="java.lang.String"/>
+	<parameter name="INVOICE_NO" class="java.lang.String"/>
+	<parameter name="VEHICLE_TYPE" class="java.lang.String"/>
+	<parameter name="LOADING_LOCATION" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+  li.amount_in_word,
+  li.created_by,
+  li.final_other_tax_amount,
+  li.final_total_amount,
+  li.final_vat_amount,
+  li.final_without_tax_amount,
+  li.remark,
+  re.report_text1,
+  re.report_text2,
+  re.report_text3,
+  re.report_text4,
+  re.report_text5,
+  re.report_text6,
+  re.report_text7,
+  ri1.file_data report_image1,
+  ri2.file_data report_image2
+FROM
+  tms.bulk_invoice li,
+  tms.report re,
+  tms.report_image ri1,
+  tms.report_image ri2
+WHERE
+   li.bulk_invoice_seq = $P{BULK_INVOICE_SEQ}
+  AND re.report_seq = $P{REPORT_SEQ}
+  AND ri1.report_image_seq = re.report_image_seq1
+  AND ri2.report_image_seq = re.report_image_seq2]]>
+	</queryString>
+	<field name="amount_in_word" class="java.lang.String"/>
+	<field name="created_by" class="java.lang.String"/>
+	<field name="final_other_tax_amount" class="java.lang.Double"/>
+	<field name="final_total_amount" class="java.lang.Double"/>
+	<field name="final_vat_amount" class="java.lang.Double"/>
+	<field name="final_without_tax_amount" class="java.lang.Double"/>
+	<field name="remark" class="java.lang.String"/>
+	<field name="report_text1" class="java.lang.String"/>
+	<field name="report_text2" class="java.lang.String"/>
+	<field name="report_text3" class="java.lang.String"/>
+	<field name="report_text4" class="java.lang.String"/>
+	<field name="report_text5" class="java.lang.String"/>
+	<field name="report_text6" class="java.lang.String"/>
+	<field name="report_text7" class="java.lang.String"/>
+	<field name="report_image1" class="java.io.InputStream"/>
+	<field name="report_image2" class="java.io.InputStream"/>
+	<pageHeader>
+		<band height="148">
+			<image hAlign="Center">
+				<reportElement x="10" y="5" width="530" height="70" uuid="f4c876f4-b4ec-4bc7-9088-e73b203ae066"/>
+				<imageExpression><![CDATA[$F{report_image1}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="0" y="83" width="270" height="65" uuid="8cf93888-8308-4521-9e22-90e04d039d44"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="304" y="133" width="76" height="15" uuid="1ad0c3f5-566d-41a3-8763-64b31f903829"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="114" width="76" height="15" uuid="04d58524-a298-4bb7-9d43-2bbf6c4ea5c5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[INVOICE NO]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="302" y="86" width="238" height="22" backcolor="#999090" uuid="0445a209-e057-4310-9618-11c8c2658ff7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="5" y="88" width="261" height="60" uuid="cdcf475c-d44e-47af-8042-e962515a1789"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{STAKEHOLDER_ADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="114" width="160" height="15" uuid="27fea91e-3343-4322-8ef4-702e3fba4b75"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{INVOICE_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="133" width="160" height="15" uuid="d6750177-15f2-46fd-b906-f2dcb650c8c2"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{INVOICED_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="302" y="86" width="238" height="22" uuid="361d83a5-c311-4cd7-82d6-bd24a4bb71ab">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{INVOICE_TYPE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="92">
+			<rectangle>
+				<reportElement x="0" y="0" width="554" height="92" uuid="71e3d357-9ff6-45dd-b841-ef16991c03ae"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="282" y="30" width="59" height="15" uuid="53c09fad-7af6-41b5-b267-f8858c5e8490"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DURATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="10" width="90" height="15" uuid="ac268501-a8c5-46b6-bd8e-9655c858b82c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[VEHICLE NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="10" width="58" height="15" uuid="7dd6df93-8772-498f-9c86-4cffbf6fbe45"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[SHIPPER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="49" width="90" height="15" uuid="365bfa97-bbc7-43a9-9f47-0458a70164ef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[LOCATION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="10" width="167" height="15" uuid="e23b4a5e-a62f-4b83-b158-5c70ed2e8e35"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VEHICLE_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="10" width="194" height="15" uuid="0d2cf12b-16bf-4243-888d-f2c6c31a403d"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SHIPPER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="49" width="426" height="41" uuid="8dc48370-839d-4398-8147-7c4256d46230"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{LOADING_LOCATION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="30" width="59" height="15" uuid="a4a3a4f6-3a13-4869-a08a-d200d65ad915"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{START_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="30" width="64" height="15" uuid="a68ec7ab-09c8-407b-880b-96a37d5a3f44"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{END_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="30" width="90" height="15" uuid="59cfa9a1-1c33-4deb-ba61-3d242760b864"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[VEHICLE TYPE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="30" width="167" height="15" uuid="bc82474f-d6d6-47c4-adc4-94d417f07a2d"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VEHICLE_TYPE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="401" y="30" width="24" height="15" uuid="483fe123-aa3e-42ad-9f81-97b45db8e985"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[to]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="84" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport overflowType="Stretch">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="2" width="554" height="80" uuid="938c43ea-c97b-4798-bbcb-f455e02e0f5b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="BULK_INVOICE_SEQ">
+					<subreportParameterExpression><![CDATA[$P{BULK_INVOICE_SEQ}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["BulkInvoiceOnePageDetail_SubReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="380" y="4" width="140" height="15" uuid="21e2e041-03d0-45d2-be63-4c329a015c00"/>
+				<textElement textAlignment="Right">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="4" width="80" height="15" uuid="41ead6f5-e9a7-4e1d-9da7-3eea957d6772"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[CREATED BY ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="4" width="130" height="15" uuid="8024c7f6-5b58-4103-bf4e-de0a04f73d1e"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{created_by}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="22" width="354" height="15" uuid="3217923f-aef8-4784-942a-4d2f1982fe76"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[This Computer Generated Document requires No Signatures.
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="195">
+			<rectangle>
+				<reportElement x="0" y="1" width="539" height="89" uuid="a6040192-4720-4950-b535-42107ce15e0a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="5" width="100" height="15" uuid="1df45de2-62cc-4921-907d-838847d12a2c"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[REMARKS]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="ElementGroupHeight" x="30" y="20" width="285" height="46" uuid="ef52acdd-7f7d-4fbc-818f-907fe3dab262"/>
+				<textElement>
+					<font fontName="Serif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="440" y="1" width="115" height="33" uuid="cf3517d8-0ca5-43c7-84e5-cc41ff8b8d8a"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="440" y="34" width="115" height="27" uuid="8e197187-5945-4727-88f1-f2491d40ff3e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="440" y="61" width="115" height="29" uuid="5d354864-48c8-4787-b3c4-db8a9370739b"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="329" y="5" width="100" height="20" uuid="67fed662-2384-4686-8719-1152063f5f90"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="67" width="100" height="16" uuid="f7b62c89-67cb-4bd0-8f44-f2abd7e6f15d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[NET DUE]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;(-#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="441" y="1" width="101" height="29" uuid="cf4dcca1-82a0-4aa2-bd2a-0d980d419074"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_other_tax_amount} + $F{final_without_tax_amount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="441" y="61" width="101" height="29" uuid="8e9046d9-b9a6-4eba-b051-8cd9211bbc4d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_total_amount}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="315" y="90" width="240" height="71" uuid="cf50a1c8-d2ec-44b8-9aa8-e449bb8180f5"/>
+			</rectangle>
+			<image>
+				<reportElement x="350" y="165" width="190" height="20" uuid="35fb4571-ae21-49d8-89a8-34ced6753f28"/>
+				<imageExpression><![CDATA[$F{report_image2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="314" y="100" width="236" height="20" uuid="db0ff764-1924-4b53-a471-0c400418afa3"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_text1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="101" width="290" height="40" uuid="037f5c39-2891-4a14-94b7-adcd33d16b1c"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_text2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="20" y="141" width="290" height="40" uuid="68926190-9a93-4a5c-b139-8947a401840b"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_text3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="328" y="40" width="100" height="16" uuid="8f39658f-162d-4498-ab2a-b04acdac3021"/>
+				<textElement>
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{VAT_TAX_TEXT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="441" y="34" width="101" height="29" uuid="9c15d1b7-64c5-4351-a6d1-1bd9d692b2bd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_vat_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

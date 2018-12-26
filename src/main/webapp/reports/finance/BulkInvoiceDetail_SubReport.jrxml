@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2018-06-30T13:20:06 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Salary_Detail_Printed_SubReport" pageWidth="543" pageHeight="200" whenNoDataType="NoDataSection" columnWidth="543" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d4faa3af-055e-44d4-9a45-43db46f0e123">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="TMS"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="inch"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="BULK_INVOICE_SEQ" class="java.lang.Integer"/>
+	<queryString language="plsql">
+		<![CDATA[SELECT
+  tb.prefix || LPAD(tb.transport_booking_seq::text, 6, '0') booking_no,
+  tb.customer_reference_no,
+  li.local_invoice_no,
+  tbf.documents_collected_date,
+  ve.vehicle_no,
+  pick.final_destination_code pick_location,
+  string_agg(via.final_destination_code,' VIA ') via_location,
+  delivery.final_destination_code delivery_location,
+  tbf.chargeable_km,
+  li.final_total_amount
+FROM
+  tms.bulk_invoice_detail bid,
+  tms.local_invoice li,
+  tms.transport_booking_feedback tbf,
+  tms.final_destination pick,
+  tms.final_destination delivery,
+  tms.transport_booking_vehicle tbv,
+  tms.vehicle ve,
+  tms.transport_booking tb
+  LEFT OUTER JOIN tms.transport_booking_via_location tbvia
+    ON tb.transport_booking_seq = tbvia.transport_booking_seq
+    LEFT OUTER JOIN tms.final_destination via
+      ON tbvia.via_location_seq = via.final_destination_seq
+WHERE
+  bid.bulk_invoice_seq = $P{BULK_INVOICE_SEQ}
+and bid.local_invoice_seq = li.local_invoice_seq
+and li.reference_seq = tb.transport_booking_seq
+and tb.transport_booking_seq = tbf.transport_booking_seq
+and tb.pickup_location_seq = pick.final_destination_seq
+and tb.delivery_location_seq = delivery.final_destination_seq
+and tb.transport_booking_seq = tbv.transport_booking_seq
+and tbv.vehicle_seq = ve.vehicle_seq
+and tbv.status = 2
+GROUP BY
+tb.prefix,
+tb.transport_booking_seq,
+tb.customer_reference_no,
+li.local_invoice_no,
+tbf.documents_collected_date,
+ve.vehicle_no,
+pick.final_destination_code,
+delivery.final_destination_code,
+tbf.chargeable_km,
+li.final_total_amount
+ORDER BY
+  tb.customer_reference_no]]>
+	</queryString>
+	<field name="booking_no" class="java.lang.String"/>
+	<field name="customer_reference_no" class="java.lang.String"/>
+	<field name="local_invoice_no" class="java.lang.String"/>
+	<field name="documents_collected_date" class="java.sql.Timestamp"/>
+	<field name="vehicle_no" class="java.lang.String"/>
+	<field name="pick_location" class="java.lang.String"/>
+	<field name="via_location" class="java.lang.String"/>
+	<field name="delivery_location" class="java.lang.String"/>
+	<field name="chargeable_km" class="java.lang.Double"/>
+	<field name="final_total_amount" class="java.lang.Double"/>
+	<pageHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="6" y="6" width="181" height="15" uuid="2ec167e6-2a5a-4a03-86ff-3def3321cd56"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[BULK INVOICE DETAIL SHEET]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22">
+			<staticText>
+				<reportElement x="9" y="0" width="40" height="20" uuid="a9a753b2-9562-4067-9274-2cec5ca989a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BOOKING NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="46" height="20" uuid="b30cd8eb-91a8-4e1b-b83c-66e4f3438e4b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUSTOMER REFERENCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="0" width="46" height="20" uuid="e35352a8-315b-4790-88af-0680f86e63f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="146" y="0" width="44" height="20" uuid="3deeefcf-7c6e-456d-8db2-515f8675f3e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENT COLLECTED]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="0" width="42" height="20" uuid="49b53cba-b8a7-4ca2-ae3f-2397e922c87d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VEHICLE NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="59" height="20" uuid="1f5ce442-eadf-4cba-8c53-fd0b87532de3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PICKUP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="0" width="97" height="20" uuid="b859b5a4-12a6-4459-b546-65e99b5e5063"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VIA LOCATIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="0" width="58" height="20" uuid="3580ff7b-2177-4791-8a85-39af58a17907"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DELIVERY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="0" width="37" height="20" uuid="b5e61e96-b491-412d-af5a-c473e6b51a3f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHAR. KM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="496" y="0" width="39" height="20" uuid="b83dea5f-93c1-4093-860d-a0e1901dca1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMOUNT]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="20" width="529" height="1" uuid="4b724da8-a7a2-43da-bbb6-cb49771a98db"/>
+			</line>
+			<line>
+				<reportElement x="6" y="0" width="529" height="1" uuid="c5f6fcfa-f542-4639-a699-90f1d6ed5099"/>
+			</line>
+			<line>
+				<reportElement x="6" y="0" width="1" height="22" uuid="acde4aa0-8117-44e4-a765-7b1d7547e67e"/>
+			</line>
+			<line>
+				<reportElement x="535" y="0" width="1" height="22" uuid="a607abb5-4ec0-4db8-a0b7-4837515bc074"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="8" y="1" width="40" height="19" uuid="06b3584e-a32a-4067-ac46-9c6d3053e9c7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{booking_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="50" y="1" width="46" height="19" uuid="dfa916a6-ee33-4758-9b90-ee516f3cbbc3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customer_reference_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="98" y="1" width="46" height="19" uuid="7296effd-853d-4d58-91ef-2b3ce17e48b6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local_invoice_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="MMMM d, yyyy" isBlankWhenNull="true">
+				<reportElement x="146" y="1" width="44" height="19" uuid="aa499525-3acc-4776-8045-7eaabe35c224"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{documents_collected_date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="192" y="1" width="42" height="19" uuid="e73b747f-c32a-44b0-9782-87d7924be069"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vehicle_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="236" y="1" width="59" height="19" uuid="9872d084-8493-428e-a689-c22c3312094a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pick_location}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="297" y="1" width="95" height="19" uuid="fa435b8f-1736-4135-a379-8596a67e84d0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{via_location}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="396" y="1" width="58" height="19" uuid="92b34534-6415-416b-b3b8-4b145a27695e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delivery_location}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="457" y="1" width="37" height="19" uuid="e0fc859d-41f8-4221-9f4a-52bd9596012f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{chargeable_km}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.###;(-#,##0.###)" isBlankWhenNull="true">
+				<reportElement x="496" y="1" width="30" height="19" uuid="44a71fa5-1c2e-432b-aa81-f72df9b9795c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{final_total_amount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="6" y="21" width="529" height="1" uuid="b04c726b-cbd1-49ba-94cf-ab440df4aced"/>
+			</line>
+			<line>
+				<reportElement stretchType="ElementGroupHeight" x="6" y="0" width="1" height="22" uuid="c07f47f5-aadf-45f5-bc73-c88ce43dfb57"/>
+			</line>
+			<line>
+				<reportElement stretchType="ElementGroupHeight" x="535" y="-1" width="1" height="23" uuid="baa21678-3641-4ecd-8c1a-580b84501da6"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

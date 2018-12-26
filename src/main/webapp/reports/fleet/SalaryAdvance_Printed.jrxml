@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2018-05-25T08:34:36 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LocalInvoice_Printed" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" isIgnorePagination="true" uuid="038a2733-2f77-42fb-bda2-120418678806">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="TMS"/>
+	<parameter name="REPORT_SEQ" class="java.lang.Integer"/>
+	<parameter name="SALARY_ADVANCE" class="java.lang.Double"/>
+	<parameter name="NET_PAY" class="java.lang.Double"/>
+	<parameter name="CREATED_BY" class="java.lang.String"/>
+	<parameter name="CREATED_DATE" class="java.lang.String"/>
+	<parameter name="EMPLOYEE_NAME" class="java.lang.String"/>
+	<parameter name="DESIGNATION" class="java.lang.String"/>
+	<parameter name="YEAR_MONTH" class="java.lang.String"/>
+	<parameter name="REMARKS" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+  re.report_text1,
+  re.report_text2,
+  re.report_text3,
+  re.report_text4,
+  re.report_text5,
+  re.report_text6,
+  re.report_text7,
+  ri1.file_data report_image1,
+  ri2.file_data report_image2
+FROM
+  tms.report re,
+  tms.report_image ri1,
+  tms.report_image ri2
+WHERE
+ re.report_seq = $P{REPORT_SEQ}
+  AND ri1.report_image_seq = re.report_image_seq1
+  AND ri2.report_image_seq = re.report_image_seq2]]>
+	</queryString>
+	<field name="report_text1" class="java.lang.String"/>
+	<field name="report_text2" class="java.lang.String"/>
+	<field name="report_text3" class="java.lang.String"/>
+	<field name="report_text4" class="java.lang.String"/>
+	<field name="report_text5" class="java.lang.String"/>
+	<field name="report_text6" class="java.lang.String"/>
+	<field name="report_text7" class="java.lang.String"/>
+	<field name="report_image1" class="java.io.InputStream"/>
+	<field name="report_image2" class="java.io.InputStream"/>
+	<title>
+		<band height="368" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image hAlign="Center">
+				<reportElement x="10" y="5" width="530" height="70" uuid="f4c876f4-b4ec-4bc7-9088-e73b203ae066"/>
+				<imageExpression><![CDATA[$F{report_image1}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="277" y="138" width="76" height="23" uuid="1ad0c3f5-566d-41a3-8763-64b31f903829"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DESIGNATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="184" width="76" height="23" uuid="a3b74370-170c-4dbd-805f-115ed5411468"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="116" width="76" height="23" uuid="04d58524-a298-4bb7-9d43-2bbf6c4ea5c5">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[EMPLOYEE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="276" y="86" width="264" height="22" backcolor="#999090" uuid="0445a209-e057-4310-9618-11c8c2658ff7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="277" y="161" width="76" height="23" uuid="e26bc872-a5aa-4f82-9063-a379fd15dc37"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[YEAR/MONTH]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="355" y="116" width="185" height="23" uuid="27fea91e-3343-4322-8ef4-702e3fba4b75">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{EMPLOYEE_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="138" width="185" height="23" uuid="d6750177-15f2-46fd-b906-f2dcb650c8c2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DESIGNATION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="161" width="185" height="23" uuid="2a8e4075-1b29-4849-8232-f1f8ca2de9d0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{YEAR_MONTH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="184" width="185" height="23" uuid="5ee2993c-d81d-41cd-9300-65b0de0cec7a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CREATED_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="86" width="258" height="22" uuid="5b044b96-1b3a-493a-bd5f-1ac52891cc4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALARY ADVANCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="99" width="70" height="30" uuid="f4248298-013b-479d-a24f-e0051cdbbbe6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ADVANCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="130" width="70" height="31" uuid="f4c80df9-6956-4f46-8d40-7d7f38d6feee"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[NET PAY TO DATE]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="80" y="100" width="190" height="29" uuid="b4482b50-c9f2-4aa4-9102-1d83812806cc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="16" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SALARY_ADVANCE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)">
+				<reportElement x="80" y="132" width="180" height="29" uuid="2c0e356d-5b4f-4f31-b432-a0870c52d20b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NET_PAY}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="300" y="250" width="240" height="71" uuid="cf50a1c8-d2ec-44b8-9aa8-e449bb8180f5"/>
+			</rectangle>
+			<image>
+				<reportElement x="340" y="326" width="190" height="20" uuid="35fb4571-ae21-49d8-89a8-34ced6753f28"/>
+				<imageExpression><![CDATA[$F{report_image2}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="304" y="260" width="236" height="20" uuid="db0ff764-1924-4b53-a471-0c400418afa3"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_text1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="261" width="290" height="40" uuid="037f5c39-2891-4a14-94b7-adcd33d16b1c"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_text2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="301" width="290" height="40" uuid="68926190-9a93-4a5c-b139-8947a401840b"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_text3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="166" width="70" height="31" uuid="6923f4c8-3972-47f7-b35f-60999fb82f14"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[REMARKS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="166" width="180" height="74" uuid="2e8764f1-1f06-4dc3-a199-65e4f6bb4595"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Serif" size="10" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{REMARKS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageFooter>
+		<band height="39">
+			<staticText>
+				<reportElement x="10" y="4" width="80" height="15" uuid="41ead6f5-e9a7-4e1d-9da7-3eea957d6772"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<text><![CDATA[CREATED BY ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="4" width="130" height="15" uuid="8024c7f6-5b58-4103-bf4e-de0a04f73d1e"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CREATED_BY}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="22" width="354" height="15" uuid="3217923f-aef8-4784-942a-4d2f1982fe76"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[This Computer Generated Document requires No Signatures.
+]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

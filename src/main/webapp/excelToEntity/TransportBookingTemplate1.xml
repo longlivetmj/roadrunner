@@ -1,0 +1,46 @@
+<workbook>
+    <worksheet idx="0">
+        <section startRow="0" endRow="0"/>
+        <loop startRow="1" endRow="1" items="result" var="transportBooking"  varType="com.tmj.tms.transport.datalayer.modal.auxiliary.TransportBookingTemplate1">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">transportBooking.arrivalTime</mapping>
+                <mapping row="1" col="1">transportBooking.pickupLocation</mapping>
+                <mapping row="1" col="2">transportBooking.customerName</mapping>
+                <mapping row="1" col="3">transportBooking.vehicleNo</mapping>
+                <mapping row="1" col="4">transportBooking.driverName</mapping>
+                <mapping row="1" col="5">transportBooking.arrivedAtPickup</mapping>
+                <mapping row="1" col="6">transportBooking.departedFromPickup</mapping>
+                <mapping row="1" col="7">transportBooking.arrivedAtDelivery</mapping>
+                <mapping row="1" col="8">transportBooking.departedFromDelivery</mapping>
+                <mapping row="1" col="9">transportBooking.shipperName</mapping>
+                <mapping row="1" col="10">transportBooking.actualStartLocation</mapping>
+                <mapping row="1" col="11">transportBooking.viaLocation1</mapping>
+                <mapping row="1" col="12">transportBooking.viaLocation2</mapping>
+                <mapping row="1" col="13">transportBooking.viaLocation3</mapping>
+                <mapping row="1" col="14">transportBooking.viaLocation4</mapping>
+                <mapping row="1" col="15">transportBooking.viaLocation5</mapping>
+                <mapping row="1" col="16">transportBooking.viaLocation6</mapping>
+                <mapping row="1" col="17">transportBooking.viaLocation7</mapping>
+                <mapping row="1" col="18">transportBooking.viaLocation8</mapping>
+                <mapping row="1" col="19">transportBooking.viaLocation9</mapping>
+                <mapping row="1" col="20">transportBooking.viaLocation10</mapping>
+                <mapping row="1" col="21">transportBooking.viaLocation11</mapping>
+                <mapping row="1" col="22">transportBooking.viaLocation12</mapping>
+                <mapping row="1" col="23">transportBooking.viaLocation13</mapping>
+                <mapping row="1" col="24">transportBooking.viaLocation14</mapping>
+                <mapping row="1" col="25">transportBooking.viaLocation15</mapping>
+                <mapping row="1" col="26">transportBooking.deliveryLocation</mapping>
+                <mapping row="1" col="27">transportBooking.deliveryTime</mapping>
+                <mapping row="1" col="28">transportBooking.actualEndLocation</mapping>
+                <mapping row="1" col="29">transportBooking.vehicleType</mapping>
+                <mapping row="1" col="30">transportBooking.remarks</mapping>
+                <mapping row="1" col="31">transportBooking.customerReferenceNo</mapping>
+                <mapping row="1" col="32">transportBooking.cleaner</mapping>
+                <mapping row="1" col="33">transportBooking.confirmationDate</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0"/>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>
