@@ -11,6 +11,7 @@ import com.tmj.tms.transport.datalayer.modal.TransportBookingViaLocation;
 import com.tmj.tms.transport.datalayer.service.TransportBookingService;
 import com.tmj.tms.transport.utility.service.DistanceCalculatorService;
 import com.tmj.tms.utility.DateFormatter;
+import com.tmj.tms.utility.NDaysBefore;
 import com.tmj.tms.utility.NumberFormatter;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ import java.util.List;
 @Service
 public class DistanceCalculator implements DistanceCalculatorService {
 
-    private static final String API_KEY = "AIzaSyA9PP0PZRdd1n5Tk_uZSjRUvU3_27E6gx8"; //roadrunner
-//    private static final String API_KEY = "AIzaSyCIebKHg-MRTQUe_PnuYeDOJOtGgiDSo9c"; //longlivetmj
+    private static final String API_KEY = "AIzaSyAzyI37Eo9WFfcC5U2S4adtTg0jGLMGg0c"; //roadrunner
 
     private final TransportBookingService transportBookingService;
     private final FinalDestinationService finalDestinationService;
@@ -46,7 +46,7 @@ public class DistanceCalculator implements DistanceCalculatorService {
         try {
             GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
             if (date.before(new Date())) {
-                date = new Date();
+                date = new NDaysBefore().getDateNDaysAfterDate(new Date(), 1);
             }
             if (routeRestriction == null) {
                 routeRestriction = DirectionsApi.RouteRestriction.TOLLS;
@@ -127,11 +127,11 @@ public class DistanceCalculator implements DistanceCalculatorService {
                 }
             }
             if (viaLocations.size() == 0) {
-                DistanceAndDuration distanceAndDuration = this.calculateDistance(new Date(), true, null, transportBooking.getPickupLocationSeq(), null, transportBooking.getDeliveryLocationSeq());
+                DistanceAndDuration distanceAndDuration = this.calculateDistance(transportBooking.getRequestedArrivalTime(), true, null, transportBooking.getPickupLocationSeq(), null, transportBooking.getDeliveryLocationSeq());
                 chargeableKm = distanceAndDuration.getDistance() * 2;
             } else {
-                DistanceAndDuration distanceAndDurationJob = this.calculateDistance(new Date(), true, null, transportBooking.getPickupLocationSeq(), viaLocations, transportBooking.getDeliveryLocationSeq());
-                DistanceAndDuration distanceAndDurationReturn = this.calculateDistance(new Date(), true, null, transportBooking.getPickupLocationSeq(), null, transportBooking.getDeliveryLocationSeq());
+                DistanceAndDuration distanceAndDurationJob = this.calculateDistance(transportBooking.getRequestedArrivalTime(), true, null, transportBooking.getPickupLocationSeq(), viaLocations, transportBooking.getDeliveryLocationSeq());
+                DistanceAndDuration distanceAndDurationReturn = this.calculateDistance(transportBooking.getRequestedArrivalTime(), true, null, transportBooking.getPickupLocationSeq(), null, transportBooking.getDeliveryLocationSeq());
                 chargeableKm = distanceAndDurationJob.getDistance() + distanceAndDurationReturn.getDistance();
             }
             chargeableKm = NumberFormatter.round(chargeableKm * 102 / 100, 0);
@@ -164,14 +164,14 @@ public class DistanceCalculator implements DistanceCalculatorService {
         try {
             TransportBooking transportBooking = this.transportBookingService.findOne(transportBookingSeq);
             if (transportBooking.getActualStartLocationSeq() != null) {
-                DistanceAndDuration distanceAndDuration = this.calculateDistance(new Date(), true, null, transportBooking.getActualStartLocationSeq(), null, transportBooking.getPickupLocationSeq());
+                DistanceAndDuration distanceAndDuration = this.calculateDistance(transportBooking.getRequestedArrivalTime(), true, null, transportBooking.getActualStartLocationSeq(), null, transportBooking.getPickupLocationSeq());
                 if (distanceAndDuration != null && distanceAndDuration.getDistance() > 0) {
                     placementKm = distanceAndDuration.getDistance();
                 }
             }
 
             if (transportBooking.getActualEndLocationSeq() != null) {
-                DistanceAndDuration distanceAndDuration = this.calculateDistance(new Date(), true, null, transportBooking.getDeliveryLocationSeq(), null, transportBooking.getActualEndLocationSeq());
+                DistanceAndDuration distanceAndDuration = this.calculateDistance(transportBooking.getRequestedArrivalTime(), true, null, transportBooking.getDeliveryLocationSeq(), null, transportBooking.getActualEndLocationSeq());
                 if (distanceAndDuration != null && distanceAndDuration.getDistance() != null && distanceAndDuration.getDistance() > 0) {
                     placementKm = placementKm + distanceAndDuration.getDistance();
                 }

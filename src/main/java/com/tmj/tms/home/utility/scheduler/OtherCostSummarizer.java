@@ -59,68 +59,85 @@ public class OtherCostSummarizer {
                 List<TempOtherCost> tempOtherCostList = new ArrayList<>();
                 List<Salary> salaryList = this.salaryService.findByCompanyProfileSeqAndStatus(companyProfile.getCompanyProfileSeq(), MasterDataStatus.APPROVED.getStatusSeq());
                 for (Salary salary : salaryList) {
-                    if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.SALARY.getCostType(), salary.getSalarySeq()) == null) {
-                        TempOtherCost tempOtherCost = new TempOtherCost();
-                        tempOtherCost.setAmount(salary.getNetPay());
-                        tempOtherCost.setReferenceSeq(salary.getSalarySeq());
-                        tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
-                        tempOtherCost.setTransactionDate(salary.getCreatedDate());
-                        tempOtherCost.setCostType(CostType.SALARY.getCostType());
-                        tempOtherCostList.add(tempOtherCost);
+                    try {
+                        if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.SALARY.getCostType(), salary.getSalarySeq()) == null) {
+                            TempOtherCost tempOtherCost = new TempOtherCost();
+                            tempOtherCost.setAmount(salary.getNetPay());
+                            tempOtherCost.setReferenceSeq(salary.getSalarySeq());
+                            tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
+                            tempOtherCost.setTransactionDate(salary.getCreatedDate());
+                            tempOtherCost.setCostType(CostType.SALARY.getCostType());
+                            tempOtherCostList.add(tempOtherCost);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Other Cost error");
                     }
+
                 }
                 List<SalaryAdvance> salaryAdvanceList = this.salaryAdvanceService.findByCompanyProfileSeqAndStatus(companyProfile.getCompanyProfileSeq(), MasterDataStatus.APPROVED.getStatusSeq());
                 for (SalaryAdvance salaryAdvance : salaryAdvanceList) {
-                    if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.SALARY_ADVANCE.getCostType(), salaryAdvance.getSalaryAdvanceSeq()) == null) {
-                        TempOtherCost tempOtherCost = new TempOtherCost();
-                        tempOtherCost.setAmount(salaryAdvance.getNetPay());
-                        tempOtherCost.setReferenceSeq(salaryAdvance.getSalaryAdvanceSeq());
-                        tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
-                        tempOtherCost.setTransactionDate(salaryAdvance.getCreatedDate());
-                        tempOtherCost.setCostType(CostType.SALARY_ADVANCE.getCostType());
-                        tempOtherCostList.add(tempOtherCost);
+                    try {
+                        if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.SALARY_ADVANCE.getCostType(), salaryAdvance.getSalaryAdvanceSeq()) == null) {
+                            TempOtherCost tempOtherCost = new TempOtherCost();
+                            tempOtherCost.setAmount(salaryAdvance.getNetPay());
+                            tempOtherCost.setReferenceSeq(salaryAdvance.getSalaryAdvanceSeq());
+                            tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
+                            tempOtherCost.setTransactionDate(salaryAdvance.getCreatedDate());
+                            tempOtherCost.setCostType(CostType.SALARY_ADVANCE.getCostType());
+                            tempOtherCostList.add(tempOtherCost);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Other Cost error");
                     }
                 }
                 List<VehicleFuel> vehicleFuelList = this.vehicleFuelService.findByCompanyProfileSeqAndStatus(companyProfile.getCompanyProfileSeq(), MasterDataStatus.APPROVED.getStatusSeq());
                 for (VehicleFuel vehicleFuel : vehicleFuelList) {
-                    if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.FUEL.getCostType(), vehicleFuel.getVehicleFuelSeq()) == null) {
-                        TempOtherCost tempOtherCost = new TempOtherCost();
-                        tempOtherCost.setAmount(vehicleFuel.getAmount());
-                        tempOtherCost.setReferenceSeq(vehicleFuel.getVehicleFuelSeq());
-                        tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
-                        tempOtherCost.setTransactionDate(vehicleFuel.getTransactionDate());
-                        tempOtherCost.setCostType(CostType.FUEL.getCostType());
-                        tempOtherCostList.add(tempOtherCost);
+                    try {
+                        if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.FUEL.getCostType(), vehicleFuel.getVehicleFuelSeq()) == null) {
+                            TempOtherCost tempOtherCost = new TempOtherCost();
+                            tempOtherCost.setAmount(vehicleFuel.getAmount());
+                            tempOtherCost.setReferenceSeq(vehicleFuel.getVehicleFuelSeq());
+                            tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
+                            tempOtherCost.setTransactionDate(vehicleFuel.getTransactionDate());
+                            tempOtherCost.setCostType(CostType.FUEL.getCostType());
+                            tempOtherCostList.add(tempOtherCost);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Other Cost error");
                     }
                 }
                 List<ServiceAndMaintenance> serviceAndMaintenanceList = this.serviceAndMaintenanceService.findByCompanyProfileSeqAndStatus(companyProfile.getCompanyProfileSeq(), MasterDataStatus.APPROVED.getStatusSeq());
                 for (ServiceAndMaintenance serviceAndMaintenance : serviceAndMaintenanceList) {
-                    if (serviceAndMaintenance.getActionType().equals(ActionType.SERVICE.getActionType())) {
-                        if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.SERVICE.getCostType(), serviceAndMaintenance.getServiceAndMaintenanceSeq()) == null) {
-                            TempOtherCost tempOtherCost = new TempOtherCost();
-                            tempOtherCost.setAmount(serviceAndMaintenance.getAmount());
-                            tempOtherCost.setReferenceSeq(serviceAndMaintenance.getServiceAndMaintenanceSeq());
-                            tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
-                            tempOtherCost.setTransactionDate(serviceAndMaintenance.getTransactionDate());
-                            tempOtherCost.setCostType(CostType.SERVICE.getCostType());
-                            tempOtherCostList.add(tempOtherCost);
+                    try {
+                        if (serviceAndMaintenance.getActionType().equals(ActionType.SERVICE.getActionType())) {
+                            if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.SERVICE.getCostType(), serviceAndMaintenance.getServiceAndMaintenanceSeq()) == null) {
+                                TempOtherCost tempOtherCost = new TempOtherCost();
+                                tempOtherCost.setAmount(serviceAndMaintenance.getAmount());
+                                tempOtherCost.setReferenceSeq(serviceAndMaintenance.getServiceAndMaintenanceSeq());
+                                tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
+                                tempOtherCost.setTransactionDate(serviceAndMaintenance.getTransactionDate());
+                                tempOtherCost.setCostType(CostType.SERVICE.getCostType());
+                                tempOtherCostList.add(tempOtherCost);
+                            }
+                        } else if (serviceAndMaintenance.getActionType().equals(ActionType.MAINTENANCE.getActionType())) {
+                            if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.MAINTENANCE.getCostType(), serviceAndMaintenance.getServiceAndMaintenanceSeq()) == null) {
+                                TempOtherCost tempOtherCost = new TempOtherCost();
+                                tempOtherCost.setAmount(serviceAndMaintenance.getAmount());
+                                tempOtherCost.setReferenceSeq(serviceAndMaintenance.getServiceAndMaintenanceSeq());
+                                tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
+                                tempOtherCost.setTransactionDate(serviceAndMaintenance.getTransactionDate());
+                                tempOtherCost.setCostType(CostType.MAINTENANCE.getCostType());
+                                tempOtherCostList.add(tempOtherCost);
+                            }
                         }
-                    } else if (serviceAndMaintenance.getActionType().equals(ActionType.MAINTENANCE.getActionType())) {
-                        if (this.tempOtherCostService.findByCostTypeAndReferenceSeq(CostType.MAINTENANCE.getCostType(), serviceAndMaintenance.getServiceAndMaintenanceSeq()) == null) {
-                            TempOtherCost tempOtherCost = new TempOtherCost();
-                            tempOtherCost.setAmount(serviceAndMaintenance.getAmount());
-                            tempOtherCost.setReferenceSeq(serviceAndMaintenance.getServiceAndMaintenanceSeq());
-                            tempOtherCost.setCompanyProfileSeq(companyProfile.getCompanyProfileSeq());
-                            tempOtherCost.setTransactionDate(serviceAndMaintenance.getTransactionDate());
-                            tempOtherCost.setCostType(CostType.MAINTENANCE.getCostType());
-                            tempOtherCostList.add(tempOtherCost);
-                        }
+                    } catch (Exception e) {
+                        System.out.println("Other Cost error");
                     }
                 }
                 this.tempOtherCostService.save(tempOtherCostList);
                 System.out.println(">>>>>>>>>>>>Cost Summation Finished >>>>>>>>>..");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Cost Summation error");
             }
         }
     }

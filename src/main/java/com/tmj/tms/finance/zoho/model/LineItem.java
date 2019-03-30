@@ -72,6 +72,9 @@ public class LineItem {
     private Double taxPercentage;
     @JsonProperty("item_total")
     private Double itemTotal;
+    @JsonProperty("tags")
+    private List<LineTag> tags = null;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -273,6 +276,16 @@ public class LineItem {
     @JsonProperty("item_total")
     public void setItemTotal(Double itemTotal) {
         this.itemTotal = itemTotal;
+    }
+
+    @JsonProperty("tags")
+    public List<LineTag> getTags() {
+        return tags;
+    }
+
+    @JsonProperty("tags")
+    public void setTags(List<LineTag> tags) {
+        this.tags = tags;
     }
 
     @JsonAnyGetter

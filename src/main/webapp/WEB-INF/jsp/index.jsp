@@ -228,7 +228,7 @@
 <script type="text/javascript" src="../../theme/js/plugins/jquery/jquery-ui-timepicker-addon.min.js"></script>
 <script type="text/javascript" src="../../theme/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyA9PP0PZRdd1n5Tk_uZSjRUvU3_27E6gx8"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAzyI37Eo9WFfcC5U2S4adtTg0jGLMGg0c"></script>
 <script type ="text/javascript" src="../../theme/js/plugins/markerwithlabel.js"></script>
 <script type="text/javascript" src="../../theme/js/plugins/jquery/infobox.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>

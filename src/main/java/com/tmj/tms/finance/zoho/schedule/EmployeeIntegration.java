@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Profile(value = "dev")
+@Profile(value = "disable")
 public class EmployeeIntegration {
 
     private final CompanyProfileService companyProfileService;
@@ -58,7 +58,6 @@ public class EmployeeIntegration {
                         Contact employeeforIntegration = this.initEmployee(employee, companyProfile);
                         this.saveOrUpdate(zohoIntegration, employee, employeeforIntegration);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>>Employee>>>>>>>>>" + employee.getEmployeeName());
                     }
                 }

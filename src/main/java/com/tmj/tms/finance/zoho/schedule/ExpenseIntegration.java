@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Profile(value = "disabled")
+@Profile(value = "disable")
 public class ExpenseIntegration {
 
     private final CompanyProfileService companyProfileService;
@@ -63,13 +63,12 @@ public class ExpenseIntegration {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>ExpenseVoucher>>>>>>>>" + expenseVoucher.getExpenseVoucherNo());
                     }
                 }
                 this.expenseVoucherService.save(expenseVoucherList);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(">>>>>>>>>ExpenseVoucher Error>>>>>>>>");
             }
         }
     }

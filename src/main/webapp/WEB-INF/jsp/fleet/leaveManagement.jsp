@@ -135,7 +135,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 col-xs-12 control-label">Year/Month</label>
                                     <div class="col-md-4 col-xs-12">
-                                        <input type="text" class="form-control" name="leaveYear" maxlength="50" readonly
+                                        <input type="text" class="form-control" name="leaveYear" maxlength="50"
                                                rv-value="leave.leaveYear"
                                                id="leaveYear" value="${currentYear}"/>
                                     </div>

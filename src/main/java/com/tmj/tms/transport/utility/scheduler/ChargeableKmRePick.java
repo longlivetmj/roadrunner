@@ -11,6 +11,7 @@ import com.tmj.tms.transport.datalayer.service.TransportBookingViaLocationServic
 import com.tmj.tms.transport.utility.BookingStatus;
 import com.tmj.tms.transport.utility.DistanceAndDuration;
 import com.tmj.tms.transport.utility.service.DistanceCalculatorService;
+import com.tmj.tms.utility.NDaysBefore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,7 +47,7 @@ public class ChargeableKmRePick {
     public void rePickKmDetails() {
         try {
             System.out.println(">>>>>>>>>>>>>Started");
-            List<TransportBooking> transportBookingList = this.transportBookingService.findFirst100ByCurrentStatusAndTransportBookingFeedback_ChargeableKmIsNull(BookingStatus.JOB_COMPLETED.getCurrentStatus());
+            List<TransportBooking> transportBookingList = this.transportBookingService.findFirst100ByCurrentStatusAndTransportBookingFeedback_ChargeableKmIsNullAndRequestedArrivalTimeGreaterThan(BookingStatus.JOB_COMPLETED.getCurrentStatus(), new NDaysBefore().getDateNDaysBeforeDate(new Date(), 90));
             for (TransportBooking transportBooking : transportBookingList) {
                 try {
                     TransportBookingFeedback transportBookingFeedback = this.transportBookingFeedbackService.findOne(transportBooking.getTransportBookingSeq());

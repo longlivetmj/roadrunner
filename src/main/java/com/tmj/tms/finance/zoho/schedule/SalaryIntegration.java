@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Profile(value = "disabled")
+@Profile(value = "prod")
 public class SalaryIntegration {
 
     private final CompanyProfileService companyProfileService;
@@ -70,7 +70,6 @@ public class SalaryIntegration {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>Salary>>>>>>>>" + salary.getSalarySeq());
                     }
                 }
@@ -88,13 +87,12 @@ public class SalaryIntegration {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>SalaryAdvance>>>>>>>>" + salaryAdvance.getSalaryAdvanceSeq());
                     }
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(">>>>>>>>>SalaryAdvance Error>>>>>>>>");
             }
         }
     }

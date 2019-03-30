@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Profile(value = "dev")
+@Profile(value = "disable")
 public class ChargeIntegration {
 
     private final CompanyProfileService companyProfileService;
@@ -51,12 +51,11 @@ public class ChargeIntegration {
                         Item item = this.initItem(charge);
                         this.saveOrUpdate(zohoIntegration, charge, item);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>>charge>>>>>>>>>" + charge.getChargeName());
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(">>>>>>>>>>charge error>>>>>>>>>");
             }
         }
     }

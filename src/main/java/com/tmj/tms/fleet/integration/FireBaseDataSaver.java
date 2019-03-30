@@ -29,8 +29,7 @@ public class FireBaseDataSaver {
                 VehicleLocationFireBase vehicleLocationFireBase = new VehicleLocationFireBase(vehicleLocation.getGpsTerminalKey(), vehicleLocation.getLatitude(), vehicleLocation.getLongitude(), vehicleLocation.getDirection(), vehicleLocation.getSpeed(), vehicle.getVehicleNo());
                 usersRef.setValueAsync(vehicleLocationFireBase);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 

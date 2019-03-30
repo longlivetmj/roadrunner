@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Profile(value = "dev")
+@Profile(value = "prod")
 public class FuelIntegration {
 
     private final CompanyProfileService companyProfileService;
@@ -70,7 +70,6 @@ public class FuelIntegration {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>VehicleFuel>>>>>>>>" + vehicleFuel.getVehicleFuelSeq());
                     }
                 }
@@ -88,13 +87,12 @@ public class FuelIntegration {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>ServiceAndMaintenance>>>>>>>>" + serviceAndMaintenance.getServiceAndMaintenanceSeq());
                     }
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(">>>>>>>>>ServiceAndMaintenance Error>>>>>>>>");
             }
         }
     }

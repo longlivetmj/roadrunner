@@ -10,7 +10,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -34,7 +33,7 @@ public class InvoiceApi extends API {
 
     public Invoice create(Invoice invoice, ZohoIntegration zohoIntegration) throws Exception {
         Invoice createdInvoice = null;
-        try{
+        try {
             String resourceUrl = url + "?organization_id=" + zohoIntegration.getOrganizationId();
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -48,8 +47,8 @@ public class InvoiceApi extends API {
 
             InvoiceResponse invoiceResponse = restTemplate.postForObject(resourceUrl, httpEntity, InvoiceResponse.class);
             createdInvoice = invoiceResponse.getInvoice();
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Invoice Integration Error" + invoice.getInvoiceNumber());
         }
         return createdInvoice;
     }

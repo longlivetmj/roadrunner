@@ -23,6 +23,7 @@ import com.tmj.tms.transport.utility.service.TransportBookingStatusUpdateAuxServ
 import com.tmj.tms.utility.DateFormatter;
 import com.tmj.tms.utility.ResponseObject;
 import com.tmj.tms.utility.YesOrNo;
+import com.wialon.extra.SearchSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -386,6 +387,7 @@ public class TransportBookingStatusControllerManagerImpl implements TransportBoo
         finalDestinationList.add(transportBooking.getDeliveryLocation());
         googleMapJobRoute.setFinalDestinationList(finalDestinationList);
         googleMapJobRoute.setCenter(this.distanceCalculatorService.calculateCentroid(finalDestinationList));
+
         return googleMapJobRoute;
     }
 

@@ -5,7 +5,10 @@ import com.tmj.tms.config.datalayer.service.CompanyProfileService;
 import com.tmj.tms.config.utility.MasterDataStatus;
 import com.tmj.tms.finance.datalayer.modal.ZohoIntegration;
 import com.tmj.tms.finance.zoho.api.ContactsApi;
+import com.tmj.tms.finance.zoho.api.TagsApi;
 import com.tmj.tms.finance.zoho.model.Contact;
+import com.tmj.tms.finance.zoho.model.Tag;
+import com.tmj.tms.finance.zoho.model.TagOption;
 import com.tmj.tms.finance.zoho.util.ZohoAccessTokenGenerator;
 import com.tmj.tms.fleet.datalayer.modal.Vehicle;
 import com.tmj.tms.fleet.datalayer.service.VehicleService;
@@ -18,15 +21,17 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Profile(value = "dev")
+@Profile(value = "disabled")
 public class VehicleIntegration {
 
     private final CompanyProfileService companyProfileService;
     private final ZohoAccessTokenGenerator zohoAccessTokenGenerator;
     private final ContactsApi contactsApi;
+    private final TagsApi tagsApi;
     private final CurrencyService currencyService;
     private final VehicleService vehicleService;
 
@@ -34,11 +39,12 @@ public class VehicleIntegration {
     public VehicleIntegration(CompanyProfileService companyProfileService,
                               ZohoAccessTokenGenerator zohoAccessTokenGenerator,
                               ContactsApi contactsApi,
-                              CurrencyService currencyService,
+                              TagsApi tagsApi, CurrencyService currencyService,
                               VehicleService vehicleService) {
         this.companyProfileService = companyProfileService;
         this.zohoAccessTokenGenerator = zohoAccessTokenGenerator;
         this.contactsApi = contactsApi;
+        this.tagsApi = tagsApi;
         this.currencyService = currencyService;
         this.vehicleService = vehicleService;
     }
@@ -50,20 +56,44 @@ public class VehicleIntegration {
         for (CompanyProfile companyProfile : companyProfileList) {
             try {
                 ZohoIntegration zohoIntegration = this.zohoAccessTokenGenerator.tokenUpdater(companyProfile.getCompanyProfileSeq());
-                List<Vehicle> vehicleList = this.vehicleService.findByCompanyProfileSeqAndFinanceIntegrationIsNullAndStakeholderSeqAndStatus(companyProfile.getCompanyProfileSeq(), companyProfile.getDefaultTransporterSeq(),MasterDataStatus.APPROVED.getStatusSeq());
+                List<Vehicle> vehicleList = this.vehicleService.findByCompanyProfileSeqAndFinanceIntegrationIsNullAndStakeholderSeqAndStatus(companyProfile.getCompanyProfileSeq(), companyProfile.getDefaultTransporterSeq(), MasterDataStatus.APPROVED.getStatusSeq());
                 for (Vehicle vehicle : vehicleList) {
                     try {
-                        Contact contact = this.initVehicle(vehicle, companyProfile);
-                        this.saveOrUpdate(zohoIntegration, vehicle, contact);
+                        //Vehicle 1281355000000000333
+                        Tag temp = this.tagsApi.getTags(zohoIntegration, "1281355000000000333");
+                        Tag tag = new Tag();
+                        tag.setTagId("1281355000000000333");
+                        tag = this.initTag(vehicle, tag);
+                        this.saveOrUpdateTag(zohoIntegration, tag);
+
+//                        Contact contact = this.initVehicle(vehicle, companyProfile);
+//                        this.saveOrUpdate(zohoIntegration, vehicle, contact);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>>>>>>>Vehicle>>>>>>>>>" + vehicle.getVehicleNo());
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(">>>>>>>>>>Vehicle error>>>>>>>>>");
             }
         }
+    }
+
+    private void saveOrUpdateTag(ZohoIntegration zohoIntegration, Tag tag) {
+        try {
+            this.tagsApi.create(tag, zohoIntegration);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Tag initTag(Vehicle vehicle, Tag tag) {
+       /* tag.setTagName("Vehicles");
+        List<TagOption> tagOptionList = new ArrayList<>();
+        TagOption tagOption = new TagOption();
+        tagOption.setTagOptionName(vehicle.getVehicleNo());
+        tagOptionList.add(tagOption);
+        tag.setTagOptions(tagOptionList);*/
+        return tag;
     }
 
     private Contact initVehicle(Vehicle vehicle, CompanyProfile companyProfile) throws Exception {

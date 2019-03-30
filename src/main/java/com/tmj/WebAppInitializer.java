@@ -1,3 +1,4 @@
+/*
 package com.tmj;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -26,3 +27,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new Filter[]{new HiddenHttpMethodFilter()};
     }
 }
+*/

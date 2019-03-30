@@ -18,4 +18,6 @@ public interface LocalInvoiceService extends JpaEntityGraphRepository<LocalInvoi
     List<LocalInvoice> findFirst100ByCompanyProfileSeqAndFinanceIntegrationIsNull(Integer companyProfileSeq);
 
     List<LocalInvoice> findFirst100ByCompanyProfileSeqAndFinanceIntegrationIsNullAndStatusOrderByLocalInvoiceNo(Integer companyProfileSeq, Integer statusSeq);
+
+    List<LocalInvoice> findByCompanyProfileSeqAndFinanceIntegrationIsNullAndStatusOrderByLocalInvoiceNo(Integer companyProfileSeq, Integer statusSeq);
 }

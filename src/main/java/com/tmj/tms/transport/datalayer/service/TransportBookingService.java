@@ -6,6 +6,7 @@ import com.cosium.spring.data.jpa.entity.graph.repository.JpaEntityGraphReposito
 import com.tmj.tms.transport.datalayer.modal.TransportBooking;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -17,7 +18,7 @@ public interface TransportBookingService extends JpaEntityGraphRepository<Transp
 
     List<TransportBooking> findFirst100ByCurrentStatusAndTransportBookingFeedback_ChargesCalculatedIsNull(Integer status);
 
-    List<TransportBooking> findFirst100ByCurrentStatusAndTransportBookingFeedback_ChargeableKmIsNull(Integer status);
+    List<TransportBooking> findFirst100ByCurrentStatusAndTransportBookingFeedback_ChargeableKmIsNullAndRequestedArrivalTimeGreaterThan(Integer status, Date date);
 
     List<TransportBooking> findFirst200ByCurrentStatusAndTransportBookingFeedback_CargoInHandKmIsNull(Integer status);
 

@@ -2,6 +2,7 @@ package com.tmj.tms.transport.utility;
 
 import com.google.maps.model.LatLng;
 import com.tmj.tms.master.datalayer.modal.FinalDestination;
+import com.tmj.tms.utility.LatLong;
 
 import java.util.List;
 
@@ -13,6 +14,10 @@ public class GoogleMapJobRoute {
     private String eta;
     private Double distance;
     private Double chargeableKm;
+
+    private LatLng currentLocation;
+    private List<LatLong> currentPath;
+    private Integer direction;
 
     public LatLng getCenter() {
         return center;
@@ -60,5 +65,29 @@ public class GoogleMapJobRoute {
 
     public void setChargeableKm(Double chargeableKm) {
         this.chargeableKm = chargeableKm;
+    }
+
+    public LatLng getCurrentLocation() {
+        return currentLocation;
+    }
+
+    public void setCurrentLocation(LatLng currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    public List<LatLong> getCurrentPath() {
+        return currentPath;
+    }
+
+    public void setCurrentPath(List<LatLong> currentPath) {
+        this.currentPath = currentPath;
+    }
+
+    public Integer getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Integer direction) {
+        this.direction = direction;
     }
 }

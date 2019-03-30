@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Profile(value = "dev")
+@Profile(value = "prod")
 public class StakeholderIntegration {
 
     private final CompanyProfileService companyProfileService;
@@ -61,7 +61,6 @@ public class StakeholderIntegration {
                         Contact contact = this.initContact(stakeholder, "customer");
                         this.saveOrUpdate(zohoIntegration, stakeholder, contact);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>Customer>>>>>" + stakeholder.getStakeholderSeq());
                     }
                 }
@@ -72,7 +71,6 @@ public class StakeholderIntegration {
                         Contact contact = this.initContact(stakeholder, "vendor");
                         this.saveOrUpdate(zohoIntegration, stakeholder, contact);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>Supplier>>>>>" + stakeholder.getStakeholderSeq());
                     }
                 }
@@ -83,12 +81,11 @@ public class StakeholderIntegration {
                         Contact contact = this.initContact(stakeholder, "vendor");
                         this.saveOrUpdate(zohoIntegration, stakeholder, contact);
                     } catch (Exception e) {
-                        e.printStackTrace();
                         System.out.println(">>>>transporterList>>>>>" + stakeholder.getStakeholderSeq());
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(">>>>transporterList error>>>>>");
             }
         }
     }
